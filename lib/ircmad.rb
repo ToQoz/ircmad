@@ -42,6 +42,7 @@ class Ircmad
           set :port, c[:port] || '6667'
           set :channel_list, c[:channel_list] || []
           set :username, c[:username]
+          set :password, c[:password]
         end.run!
       }
     end
