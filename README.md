@@ -1,24 +1,72 @@
 # Ircmad
 
-TODO: Write a gem description
+Bringing IRC into WebSocket.
+```
+IRC <-> WebSoket Server(This product) <-> WebSocket Client
+```
+If you use this gateway, you can assess IRC from browser easily.
+
+Data format is JSON.
+```
+WebSocket Server - '{"username":"ToQoz","channel":"#channel1","body":"hello world"}' -> WebSocket Client
+WebSocket Server <- '{"channel":"#channel1","body":"yes!!!"}' -> WebSocket Client
+```
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'ircmad'
+```ruby
+gem 'ircmad'
+```
 
 And then execute:
 
-    $ bundle
+```sh
+$ bundle
+```
 
 Or install it yourself as:
 
-    $ gem install ircmad
+```sh
+$ gem install ircmad
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+# proxy.rb
+require 'ircmad'
+Ircmad.new do
+  set :host, '127.0.0.1'
+  set :port, 6667
+  set :channel_list, [ '#channel', '#channel2' ]
+  set :username, 'username'
+  set :password, 'password'  # if required
+  set :websocket_port, 3333  # [default is unused port selected automatically]
+end.run!
+```
+$
+```sh
+$ ruby proxy.rb
+```
+
+In browser
+```javascript
+var socket = new WebSocket('ws://localhost:3333')
+
+// Send
+socket.send(JSON.stringify({ channel: '#channel1', body: 'yeah' }))
+
+// Get
+socket.onmessage = function(msg) { console.log(msg.data) };
+// => '{"username":"ToQoz","channel":"#channel1","body":"hello world"}'
+```
+
+
+## Examples
+
+In examples/
 
 ## Contributing
 
