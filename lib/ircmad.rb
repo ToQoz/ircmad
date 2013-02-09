@@ -4,6 +4,7 @@ require 'em-websocket'
 require 'zircon'
 
 require "ircmad/version"
+require "ircmad/zircon_ext"
 require "ircmad/configurable"
 require "ircmad/irc_client"
 require "ircmad/web_socket"
