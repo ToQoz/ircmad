@@ -1,3 +1,5 @@
+require "ircmad/web_socket/buffer"
+
 class Ircmad
   class WebSocket
     include Configurable
@@ -26,8 +28,16 @@ class Ircmad
 
     def run!
       puts "Stating WebSocket server on #{host}:#{port}"
+
+      Ircmad.get_channel.subscribe do |msg|
+        buffer << msg
+      end
+
       EM::WebSocket.start(:host => host, :port => port) do |socket|
         socket.onopen do |sock|
+          buffer.each do |msg|
+            socket.send msg.to_json
+          end
           subscribers[socket.object_id] = Ircmad.get_channel.subscribe { |msg| socket.send msg.to_json }
         end
 
@@ -43,6 +53,10 @@ class Ircmad
           puts error
         end
       end
+    end
+
+    def buffer
+      @buffer ||= Buffer.new
     end
   end
 end
