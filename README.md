@@ -8,7 +8,7 @@ If you use this gateway, you can assess IRC from browser easily.
 
 Data format is JSON.
 ```
-WebSocket Server - '{"from":"ToQoz","to":"#channel1","body":"hello world"}' -> WebSocket Client
+WebSocket Server - '{"from":"ToQoz","to":"#channel1","body":"hello world","type":"privmsg"}' -> WebSocket Client
 WebSocket Server <- '{"to":"#channel1","body":"yes!!!"}' -> WebSocket Client
 ```
 
@@ -56,8 +56,8 @@ In browser
 var socket = new WebSocket('ws://localhost:3333')
 
 // Send
-socket.send(JSON.stringify({ channel: '#channel1', body: 'yeah' }))
-socket.send(JSON.stringify({ type: 'join', channel: '#ruby'}))
+socket.send(JSON.stringify({ to: '#channel1', body: 'yeah', type: 'privmsg' }))
+socket.send(JSON.stringify({ type: 'join', to: '#ruby' }))
 
 // Get
 socket.onmessage = function(msg) { console.log(msg.data) };
