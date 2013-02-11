@@ -5,7 +5,8 @@ class Ircmad
       {
         username: fencoding.call(from),
         channel: fencoding.call(to),
-        body: fencoding.call(body)
+        body: fencoding.call(body),
+        type: fencoding.call(type)
       }.to_json
     end
   end
