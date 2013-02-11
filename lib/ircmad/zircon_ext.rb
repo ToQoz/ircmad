@@ -3,10 +3,11 @@ class Ircmad
     def to_json
       fencoding = -> s { s.respond_to?(:force_encoding) ? s.force_encoding('UTF-8') : s }
       {
-        username: fencoding.call(from),
-        channel: fencoding.call(to),
+        from: fencoding.call(from),
+        to: fencoding.call(to),
         body: fencoding.call(body),
-        type: fencoding.call(type)
+        type: fencoding.call(type),
+        raw: fencoding.call(raw)
       }.to_json
     end
 

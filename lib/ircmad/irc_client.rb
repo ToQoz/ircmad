@@ -21,8 +21,8 @@ class Ircmad
           Ircmad.get_channel << message
         end
       end
-      client.on_privmsg { |msg| Ircmad.get_channel << msg; }
-      client.on_numericreply { |msg| Ircmad.get_channel << msg; }
+      client.on_privmsg { |msg| Ircmad.get_channel << msg }
+      client.on_numericreply { |msg| Ircmad.get_channel << msg }
       client.run!
     rescue Errno::ECONNREFUSED, Errno::ECONNRESET, Errno::EPIPE => e
       puts "#{e}\nRetry Now!"
@@ -57,13 +57,13 @@ class Ircmad
 
           case m[:type].downcase
           when 'privmsg'
-            client.privmsg m[:channel], ":#{m[:message]}"
+            client.privmsg m[:to], ":#{m[:body]}"
           when 'list'
-            client.list m[:channel]
+            client.list m[:to]
           when 'names'
-            client.names m[:channel]
+            client.names m[:to]
           when 'join'
-            client.join m[:channel] if m[:channel]
+            client.join m[:to] if m[:to]
           end
         end
       }
