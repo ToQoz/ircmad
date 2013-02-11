@@ -49,8 +49,6 @@ class Ircmad
 
           case m[:type]
           when 'privmsg'
-            client.list
-            client.list '#UITalk'
             client.privmsg m[:channel], ":#{m[:message]}"
           end
         end
