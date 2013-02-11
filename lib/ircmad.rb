@@ -29,7 +29,7 @@ class Ircmad
   def run!
     Thread.abort_on_exception = true
     EM.run do
-      c = config.dup
+      c = default_config.merge(config).dup
 
       EM.defer {
         WebSocket.new do
@@ -39,13 +39,24 @@ class Ircmad
 
       EM.defer {
         IRCClient.new do
-          set :server, c[:host] || '127.0.0.1'
-          set :port, c[:port] || '6667'
-          set :channel_list, c[:channel_list] || []
+          set :server, c[:host]
+          set :port, c[:port]
+          set :channel, c[:channel_list].first
+          set :channel_list, c[:channel_list]
           set :username, c[:username]
           set :password, c[:password]
         end.run!
       }
     end
+  end
+
+  def default_config
+    {
+      :server => '127.0.0.1',
+      :port => '6667',
+      :channel => '',
+      :channel_list => [],
+      :username => ''
+    }
   end
 end
