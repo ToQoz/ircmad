@@ -11,8 +11,15 @@ class Ircmad
 
     def run!
       self.client ||= Zircon.new config
+
+      first_join = true
       client.on_join do |message|
-        config[:channel_list].each { |channel| client.join channel }
+        if first_join
+          first_join = false
+          config[:channel_list].each { |channel| client.join channel }
+        else
+          Ircmad.get_channel << message
+        end
       end
       client.on_privmsg { |msg| Ircmad.get_channel << msg; }
       client.on_numericreply { |msg| Ircmad.get_channel << msg; }
