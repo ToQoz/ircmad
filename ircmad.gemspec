@@ -19,5 +19,5 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency "eventmachine"
   gem.add_dependency "em-websocket"
-  gem.add_dependency "zircon", "0.0.4"
+  gem.add_dependency "zircon", ">= 0.0.5"
 end
