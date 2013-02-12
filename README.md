@@ -73,6 +73,10 @@ socket.onmessage = function(msg) { console.log(msg.data) };
 
 In examples/
 
+
+## Links
+Blog entry that is introduction of this product. (In Japanese) [WebSocketからIRC繋げるやつ作った](http://toqoz.hateblo.jp/entry/2013/02/09/185713)
+
 ## Contributing
 
 1. Fork it
